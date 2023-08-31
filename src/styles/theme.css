@@ -4,4 +4,8 @@ h1 {
 
 body {
     background-color: #eee;
+    background-image:url('../assets/images/bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
