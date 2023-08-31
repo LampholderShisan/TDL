@@ -1,4 +1,6 @@
 const path = require('path')
+// 引用自动创建HTML模板插件
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 路径处理
 function reslovePath(dirName = '') {
     if (typeof dirName !== 'string') return Error('Type Error ,Please enter String Type')
@@ -19,5 +21,11 @@ module.exports = {
         filename: 'bundle.js'
     },
     // 插件配置
-    plugins:[]
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: reslovePath('./public/index.html'),
+            path: reslovePath('dist/index.html'),
+            filename: 'index.html'
+        })
+    ]
 }
