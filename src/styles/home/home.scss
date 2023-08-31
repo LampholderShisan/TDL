@@ -5,8 +5,14 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+     
 }
 
 h1 {
     color: $TDL_T_Text;
+    box-shadow: 1px 1px 5px $TDL_T_Text;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }

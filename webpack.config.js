@@ -3,6 +3,8 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 自动清除打包目录 插件
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+// 自动添加css前缀
+const autoprefixer = require('autoprefixer');
 // 路径处理
 function reslovePath(dirName = '') {
     if (typeof dirName !== 'string') return Error('Type Error ,Please enter String Type')
@@ -85,6 +87,7 @@ module.exports = {
                 use: [
                     'style-loader',
                     'css-loader',
+                    'postcss-loader',
                     'sass-loader',
                     {
                         loader: 'sass-resources-loader',
@@ -94,7 +97,7 @@ module.exports = {
                         }
                     }
                 ]
-            }
+            },
 
         ],
     },
