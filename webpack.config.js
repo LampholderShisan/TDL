@@ -98,7 +98,18 @@ module.exports = {
                     }
                 ]
             },
-
+            // 对高版本js进行处理
+            {
+                test: /.m?js$/i,
+                //排除
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            }
         ],
     },
 
