@@ -22,6 +22,17 @@ module.exports = {
         path: reslovePath('dist'),
         filename: 'bundle.[hash:7].js'
     },
+    // 打包规则处理
+    module: {
+        rules: [
+            // css文件处理
+            {
+                test: /.css$/,
+                use: ['style-loader', 'css-loader']
+            }
+        ],
+    },
+
     // 插件配置
     plugins: [
         // 创建模板
