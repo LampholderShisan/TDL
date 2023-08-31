@@ -3,7 +3,6 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 自动清除打包目录 插件
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const { Parser } = require('webpack')
 // 路径处理
 function reslovePath(dirName = '') {
     if (typeof dirName !== 'string') return Error('Type Error ,Please enter String Type')
@@ -79,6 +78,22 @@ module.exports = {
                         maxSize: 1024 * 120 //小于120kb 转化为base64
                     }
                 }
+            },
+            //对sass文件进行处理
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader',
+                    {
+                        loader: 'sass-resources-loader',
+                        options: {
+                            // 多个文件时用数组的形式传入，单个文件时可以直接使用 path.resolve(__dirname, '../style/common.scss'
+                            resources: ['./src/styles/common/reset.scss', './src/styles/common/theme.scss']
+                        }
+                    }
+                ]
             }
 
         ],
@@ -88,6 +103,7 @@ module.exports = {
     plugins: [
         // 创建模板
         new HtmlWebpackPlugin({
+            title: 'TODO',
             template: reslovePath('./public/index.html'),
             path: reslovePath('dist/index.html'),
             filename: 'index.html'
