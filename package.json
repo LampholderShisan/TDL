@@ -4,8 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "dev": "webpack-dev-server --config ./webpack.config.js",
-    "build": "webpack --config webpack.config.js",
+    "dev": "webpack-dev-server --config ./build/config/webpack.dev.js",
+    "build": "webpack --config ./build/config/webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -26,9 +26,14 @@
     "sass-resources-loader": "^2.2.5",
     "style-loader": "^3.3.3",
     "url-loader": "^4.1.1",
+    "vue-loader": "^15.10.2",
+    "vue-template-compiler": "^2.7.14",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^4.15.1",
+    "webpack-merge": "^5.9.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "vue": "^2.7.14"
+  }
 }

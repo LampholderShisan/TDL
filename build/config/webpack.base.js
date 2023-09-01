@@ -1,28 +1,17 @@
-const path = require('path')
-// 引用自动创建HTML模板插件
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-// 自动清除打包目录 插件
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-// 自动添加css前缀
-const autoprefixer = require('autoprefixer');
-// 路径处理
-function reslovePath(dirName = '') {
-    if (typeof dirName !== 'string') return Error('Type Error ,Please enter String Type')
-    let reslovePath = path.resolve(__dirname, dirName)
-    if (dirName === '') return reslovePath
-    else return reslovePath
-}
+const { resolvePath, generatorSassPath } = require('../utils/utils')
+// 引用vueLoaderPluin 
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 module.exports = {
-    // mode 模式 development production none默认开发环境
-    mode: 'development',
     //入口文件
     entry: {
-        mian: reslovePath('./src/main.js')
+        // mian: resolvePath('../../src/main.js') //等同于下面写法
+        mian: resolvePath('src/main.js', true, 'TDL')
     },
     // 出口文件
     output: {
-        path: reslovePath('dist'),
-        filename: 'bundle.[hash:7].js',
+        // path: resolvePath('../../dist'),// 等同于下面写法
+        path: resolvePath('dist', true, 'TDL'),
+        filename: 'bundle.js',
         // assetModuleFilename: 'images/[hash][ext]'
     },
     // 打包规则处理
@@ -81,11 +70,12 @@ module.exports = {
                     }
                 }
             },
+
             //对sass文件进行处理
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    'style-loader',
+                    'vue-style-loader',
                     'css-loader',
                     'postcss-loader',
                     'sass-loader',
@@ -93,7 +83,8 @@ module.exports = {
                         loader: 'sass-resources-loader',
                         options: {
                             // 多个文件时用数组的形式传入，单个文件时可以直接使用 path.resolve(__dirname, '../style/common.scss'
-                            resources: ['./src/styles/common/reset.scss', './src/styles/common/theme.scss']
+                            // resources: ['./../../src/assets/styles/global/reset.scss', './../../src/assets/styles/global/theme.scss']
+                            resources: generatorSassPath(['global/reset.scss', 'global/theme.scss']),
                         }
                     }
                 ]
@@ -109,20 +100,29 @@ module.exports = {
                         presets: ['@babel/preset-env']
                     }
                 }
+            },
+            // 对vue文件进行处理
+            {
+                test: /\.vue$/i,
+                loader: 'vue-loader'
             }
         ],
     },
-
     // 插件配置
     plugins: [
-        // 创建模板
-        new HtmlWebpackPlugin({
-            title: 'TODO',
-            template: reslovePath('./public/index.html'),
-            path: reslovePath('dist/index.html'),
-            filename: 'index.html'
-        }),
-        // 自动清除打包目录
-        new CleanWebpackPlugin()
-    ]
+        // 使用VueLoaderPlugin
+        new VueLoaderPlugin()
+    ],
+    // resolve 决定的意思
+    resolve: {
+        // 别名
+        alias: {
+            '@': resolvePath('src'),
+            'vue': 'vue/dist/vue.js',
+            'images': resolvePath('src/assets/images', true, 'TDL'),
+            'styles': resolvePath('src/assets/styles', true, 'TDL')
+        }
+    },
+
 }
+
