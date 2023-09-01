@@ -1,31 +1,47 @@
 <template>
-  <div>
-    <h2>TODOLIST</h2>姓：
-    <input v-model="firstName" type="text" />
-    <br />名：
-    <input v-model="lastName" type="text" />
-    <br />
-    <h2>{{fullName}}{{msg}}</h2>
+  <div class="todo-contianer">
+    <headers></headers>
   </div>
 </template>
 <script>
 import "styles/home/home.scss";
+import headers from "./views/todo/headers.vue";
 export default {
   name: "App",
-  computed: {
-    fullName() {
-      return this.firstName + this.lastName;
-    }
+  components: {
+    headers
   },
   data() {
-    return {
-      firstName: "张",
-      lastName: "三",
-      msg: "使用vueLoader"
-    };
+    return {};
   }
 };
 </script>
 <style lang="scss">
-
+h2 {
+  color: #fff;
+}
+.todo-contianer {
+  width: 600px;
+  height: 500px;
+  opacity: 0.5;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  border-radius: 15px;
+}
+.todo-contianer::before {
+  display: inline-block;
+  content: "";
+  background: #000;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  position: absolute;
+  opacity: 0.5;
+  box-shadow: 1px 1px 5px #333;
+  border-radius: 15px;
+  z-index: -1;
+}
 </style>

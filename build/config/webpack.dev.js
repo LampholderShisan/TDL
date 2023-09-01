@@ -23,12 +23,12 @@ const devConfig = {
         // 是否启用热模板替换
         // hot: true,
         client: {
-            // logging: 'info',
+            logging: 'error',
             // overlay: {
             //     errors: false,
             //     warnings: false,
             // },
-            progress: true,
+            // progress: false, //是否在控制台显示加载进度
         }
     },
     plugins: [
