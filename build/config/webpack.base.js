@@ -117,7 +117,7 @@ module.exports = {
     resolve: {
         // 别名
         alias: {
-            '@': resolvePath('src'),
+            '@': resolvePath('src', true, 'TDL'),
             'vue': 'vue/dist/vue.js',
             'images': resolvePath('src/assets/images', true, 'TDL'),
             'styles': resolvePath('src/assets/styles', true, 'TDL')

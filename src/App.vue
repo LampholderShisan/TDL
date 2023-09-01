@@ -1,15 +1,19 @@
 <template>
   <div class="todo-contianer">
     <headers></headers>
+    <todo-list></todo-list>
   </div>
 </template>
 <script>
 import "styles/home/home.scss";
 import headers from "./views/todo/headers.vue";
+import todoList from "./views/todo/todoList.vue";
+
 export default {
   name: "App",
   components: {
-    headers
+    headers,
+    todoList
   },
   data() {
     return {};
@@ -42,6 +46,7 @@ h2 {
   opacity: 0.5;
   box-shadow: 1px 1px 5px #333;
   border-radius: 15px;
-  z-index: -1;
+  z-index: -10;
+  box-shadow: 0px 0px 10px #f2f2f2;
 }
 </style>
