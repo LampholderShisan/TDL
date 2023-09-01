@@ -2,18 +2,21 @@
   <div class="todo-contianer">
     <headers></headers>
     <todo-list></todo-list>
+    <footers></footers>
   </div>
 </template>
 <script>
 import "styles/home/home.scss";
 import headers from "./views/todo/headers.vue";
 import todoList from "./views/todo/todoList.vue";
+import footers from "./views/todo/footers.vue";
 
 export default {
   name: "App",
   components: {
     headers,
-    todoList
+    todoList,
+    footers
   },
   data() {
     return {};

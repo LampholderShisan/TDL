@@ -22,6 +22,32 @@ export default {
       insertText: ""
     };
   },
+  watch: {
+    todoList: {
+      handler(newVal, oldVal) {
+        this.$bus.$emit("todoList", newVal);
+      },
+      deep: true
+    }
+  },
+  created() {
+    // 全选
+    this.$bus.$on("all", val => {
+      this.todoList.forEach(item => {
+        if (val) {
+          item.done = true;
+        } else {
+          item.done = !item.done;
+        }
+      });
+    });
+    // 反选
+    this.$bus.$on("invert", () => {
+      this.todoList.forEach(item => {
+        item.done = !item.done;
+      });
+    });
+  },
   methods: {
     // 添加一条待办事项
     getInsert(todo) {
@@ -34,7 +60,10 @@ export default {
           item.done = !item.done;
         }
       });
-    }
+    },
+    beforeDestroy() {
+    this.$off(["all","invert"]);
+  }
   }
 };
 </script>
@@ -46,7 +75,6 @@ export default {
 }
 .todo-list {
   color: #fff;
-  background: #000;
   height: 360px;
   font-size: 16px;
   overflow: hidden;

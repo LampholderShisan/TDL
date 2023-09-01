@@ -1,0 +1,135 @@
+<template>
+  <div class="footers">
+    <span class="count">
+      <strong>{{count}}</strong>
+    </span>
+    <label for="All">
+      <input id="All" type="checkbox" :checked="all" @click="All" />全选
+    </label>
+    <label for="invert">
+      <input id="invert" type="checkbox" :checked="insert" @click="invert" /> 反选
+    </label>
+    <span class="complete">
+      完成
+      <strong>{{complete}}</strong>
+    </span>
+    <span class="incomplete">
+      未完成
+      <strong>{{incomplete}}</strong>
+    </span>
+  </div>
+</template>
+<script>
+export default {
+  name: "footers",
+  data() {
+    return {
+      msg: "footer",
+      todoList: [],
+      count: 0,
+      complete: 0,
+      incomplete: 0,
+      all: false,
+      insert: false
+    };
+  },
+  watch: {
+    todoList: {
+      handler(newVal) {
+        // 全选勾选状态
+        let arr = newVal.map(item => {
+          return item.done;
+        });
+        if (arr.includes(false)) {
+          this.all = false;
+        } else {
+          this.all = true;
+        }
+
+        // 监听完成和未完成
+        this.complete = 0;
+        this.incomplete = 0;
+        newVal.forEach(item => {
+          if (item.done) {
+            this.complete += 1;
+          } else {
+            this.incomplete += 1;
+          }
+        });
+      },
+      deep: true
+    }
+  },
+  created() {
+    this.$bus.$on("todoList", val => {
+      this.count = val.length;
+      this.todoList = val;
+    });
+  },
+
+  methods: {
+    // 全选
+    All() {
+      this.all = !this.all;
+      this.insert = false;
+      console.log(this.all);
+      this.$bus.$emit("all", this.all);
+    },
+    // 反选
+    invert() {
+      this.all = false;
+      this.insert = !this.insert;
+      this.$bus.$emit("invert");
+    }
+  },
+  beforeDestroy() {
+    this.$off("todoList");
+  }
+};
+</script>
+<style lang="scss" scoped>
+.footers {
+  width: 100%;
+  color: #fff;
+  font-weight: 600;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  font-size: 18px;
+  height: 54px;
+  line-height: 54px;
+  box-shadow: 1px 1px 5px #000;
+  cursor: pointer;
+  .count {
+    display: inline-block;
+    margin-left: 15px;
+    font-size: 26px;
+    line-height: 54px;
+    vertical-align: middle;
+  }
+  #All {
+    margin: 0 5px 0 30px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+  #invert {
+    margin: 0 0px 0 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+  .complete {
+    margin-left: 100px;
+  }
+  .incomplete {
+    margin-left: 50px;
+  }
+  strong {
+    color: pink;
+    font-size: 26px;
+    vertical-align: middle;
+  }
+}
+</style>
