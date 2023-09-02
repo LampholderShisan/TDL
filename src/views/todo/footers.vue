@@ -7,7 +7,7 @@
       <input id="All" type="checkbox" :checked="all" @click="All" />全选
     </label>
     <label for="invert">
-      <input id="invert" type="checkbox" :checked="insert" @click="invert" /> 反选
+      <input id="invert" type="checkbox" :checked="invert" @click="Invert" /> 反选
     </label>
     <span class="complete">
       完成
@@ -30,12 +30,18 @@ export default {
       complete: 0,
       incomplete: 0,
       all: false,
-      insert: false
+      invert: false,
+      frist: 0
     };
   },
   watch: {
     todoList: {
-      handler(newVal) {
+      handler(newVal, oldVal) {
+        if (newVal.length == 0) {
+          this.invert = false;
+          this.all = false;
+          return;
+        }
         // 全选勾选状态
         let arr = newVal.map(item => {
           return item.done;
@@ -49,13 +55,15 @@ export default {
         // 监听完成和未完成
         this.complete = 0;
         this.incomplete = 0;
-        newVal.forEach(item => {
-          if (item.done) {
-            this.complete += 1;
-          } else {
-            this.incomplete += 1;
-          }
-        });
+        if (newVal.length > 0) {
+          newVal.forEach(item => {
+            if (item.done) {
+              this.complete += 1;
+            } else {
+              this.incomplete += 1;
+            }
+          });
+        }
       },
       deep: true
     }
@@ -71,14 +79,13 @@ export default {
     // 全选
     All() {
       this.all = !this.all;
-      this.insert = false;
-      console.log(this.all);
+      this.invert = false;
       this.$bus.$emit("all", this.all);
     },
     // 反选
-    invert() {
+    Invert() {
+      this.invert = !this.invert;
       this.all = false;
-      this.insert = !this.insert;
       this.$bus.$emit("invert");
     }
   },

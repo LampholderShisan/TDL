@@ -1,6 +1,6 @@
 <template>
   <div class="insert">
-    <input v-model="text" placeholder="请输入待办的事项" type="text" />
+    <input v-model.trim="text" placeholder="请输入待办的事项" type="text" @keyup.enter="increase" />
     <button v-show="showIn" class="increase" @click="increase">添加</button>
   </div>
 </template>
@@ -24,6 +24,7 @@ export default {
   },
   methods: {
     increase() {
+      if (this.text == "") return alert("输入待办事项不能为空");
       this.$emit("getInsert", this.text);
       this.text = "";
     }
@@ -66,6 +67,11 @@ export default {
     color: #fff;
     font-size: 18px;
     font-weight: 600;
+    cursor: pointer;
+  }
+  .increase:hover {
+    color: #f5f5f5;
+    color: pink;
   }
 }
 </style>

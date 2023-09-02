@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+
 // 关闭生产环境的提示
 Vue.config.productionTip = false
 new Vue({
@@ -22,4 +23,4 @@ new Vue({
 //     },
 //     template: '<App/>',
 // }).$mount('#app')
- 
+
