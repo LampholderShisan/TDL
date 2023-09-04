@@ -17,6 +17,7 @@
       未完成
       <strong>{{incomplete}}</strong>
     </span>
+    <span class="deleteAll" @click="delAll">全部删除</span>
   </div>
 </template>
 <script>
@@ -87,6 +88,10 @@ export default {
       this.invert = !this.invert;
       this.all = false;
       this.$bus.$emit("invert");
+    },
+    // 全部删除
+    delAll() {
+      if (confirm("是否确定全部删除")) this.$bus.$emit("delAll");
     }
   },
   beforeDestroy() {
@@ -128,10 +133,16 @@ export default {
     vertical-align: middle;
   }
   .complete {
-    margin-left: 100px;
+    margin-left: 50px;
   }
   .incomplete {
-    margin-left: 50px;
+    margin-left: 20px;
+  }
+  .deleteAll {
+    margin-left: 100px;
+  }
+  .deleteAll:hover {
+    color: pink;
   }
   strong {
     color: pink;

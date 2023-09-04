@@ -98,6 +98,11 @@ export default {
       });
       this.save();
     });
+    // 全部删除
+    this.$bus.$on("delAll", () => {
+      this.todoList = [];
+      this.save();
+    });
   },
   methods: {
     // 缓存到浏览器中
@@ -147,6 +152,7 @@ export default {
     },
     // 监听输入框输入的事件
     input(e, id) {
+      if (e.target.value == "") return alert("编辑的内容不能为空");
       this.todoList.forEach(item => {
         if (item.id === id) {
           item.todo = e.target.value;
@@ -169,14 +175,15 @@ export default {
     },
     // 删除
     del(id) {
-      this.todoList = this.todoList.filter((item, index) => {
-        if (item.id == id) {
-          this.delIdIndex = index;
-        }
-
-        return item.id !== id;
-      });
-      this.save();
+      if (confirm("是否确定删除该项")) {
+        this.todoList = this.todoList.filter((item, index) => {
+          if (item.id == id) {
+            this.delIdIndex = index;
+          }
+          return item.id !== id;
+        });
+        this.save();
+      }
     }
   },
   beforeDestroy() {
