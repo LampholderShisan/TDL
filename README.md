@@ -12,7 +12,7 @@
 
 ### 示意图
 
-![version1.0](E:\Shisan_Studio\TDL\public\示例图.jpg)
+![version1.0](https://img-blog.csdnimg.cn/d9b301d9ad1341d494433c17c19d24b8.jpeg)
 
 ### webpack使用的loader
 
@@ -33,5 +33,5 @@
 + clean-webpack-plugin：打包时自动清除dist目录文件
 + VueLoaderPlugin:该插件是引用`vue-loader`中的并不需要安装，处理vue文件
 + autoprefixer:自动为css添加前缀，需要配合`postcss-loader`使用，配置postcss.config.js引用`autoprefixer`插件才能生效
-  + **注意：**使用的版本为`autoprefixer@7`，7以上的版本不知道为什么添加不了前缀，还没有到原因，就使用7版本了
-+ uuid:自动常见唯一的id用来标识每一个条待办事项
+  + **注意**：使用的版本为`autoprefixer@7`，7以上的版本不知道为什么添加不了前缀，还没有到原因，就使用7版本了
++ uuid:自动生成唯一的id用来标识每一个条待办事项
